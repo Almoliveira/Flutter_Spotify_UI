@@ -1,6 +1,18 @@
+import 'package:desktop_window/desktop_window.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'dart:io';
+
+import 'package:flutter_spotify_ui/widgets/widgets.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (!kIsWeb && (Platform.isMacOS || Platform.isLinux) || Platform.isWindows) {
+    await DesktopWindow.setMinWindowSize(const Size(600, 800));
+  }
+
   runApp(MyApp());
 }
 
@@ -10,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Spotify UI',
       debugShowCheckedModeBanner: false,
-      darkTheme: ThemeData(
+      theme: ThemeData(
         brightness: Brightness.dark,
         appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
         scaffoldBackgroundColor: const Color(0xFF121212),
@@ -43,10 +55,31 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: Scaffold(
-        body: Container(
-          child: Text('Aqui será o inicio da UI'),
-        ),
+      home: Shell(),
+    );
+  }
+}
+
+class Shell extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                SideMenu(),
+                //PlaylistScreen
+              ],
+            ),
+          ),
+          Container(
+            height: 84.0,
+            width: double.infinity,
+            color: Colors.blue,
+          )
+        ],
       ),
     );
   }
