@@ -1,6 +1,6 @@
 # flutter_spotify_ui
 
-A new Flutter project.
+Projeto Desktop em Flutter baseado no canal Marcus Ng, uma UI Desktop do Spotify.
 
 ## Getting Started
 
